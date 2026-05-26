@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+}
+
+body {
+    background-color: #0f091e;
+    color: #f1f5f9;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    width: 100vw;
+    height: 100vh;
+    max-width: 1280px;
+    max-height: 720px;
+    background: radial-gradient(circle, #1e113a 0%, #0d061a 100%);
+    position: relative;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 4px solid #3b2063;
+}
+
+/* Header & Stat Panel */
+.game-header {
+    height: 65px;
+    background-color: rgba(21, 11, 43, 0.85);
+    border-bottom: 3px solid #3b2063;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    z-index: 10;
+}
+
+.back-btn {
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-btn:hover {
+    color: #e2e8f0;
+    transform: translateX(-3px);
+}
+
+.stats-panel {
+    display: flex;
+    gap: 16px;
+}
+
+.stat-badge {
+    background-color: #1a0e36;
+    border: 2px solid #4c2885;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.text-amber { color: #fbbf24; text-shadow: 0 0 10px rgba(251,191,36,0.4); }
+.text-purple { color: #c084fc; text-shadow: 0 0 10px rgba(192,132,252,0.4); }
+.text-red { color: #f87171; text-shadow: 0 0 10px rgba(248,113,113,0.4); }
+
+/* Arena Pertempuran */
+.arena-wrapper {
+    flex: 1;
+    position: relative;
+    background-color: #05020a;
+}
+
+#gameCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Papan Pertanyaan Matematika */
+.question-board {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, rgba(30, 15, 66, 0.93) 0%, rgba(18, 8, 43, 0.95) 100%);
+    border: 3px solid #a855f7;
+    border-radius: 20px;
+    padding: 12px 30px;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.6), 0 0 20px rgba(168,85,247,0.3);
+    z-index: 5;
+    animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.question-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #c084fc;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+}
+
+.question-text {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.8rem;
+    color: #ffffff;
+    text-shadow: 0 4px 8px rgba(0,0,0,0.5), 0 0 15px rgba(255,255,255,0.2);
+    letter-spacing: 2px;
+}
+
+/* Overlay Loading */
+.loading-panel {
+    position: absolute;
+    inset: 0;
+    background-color: #0b0617;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    gap: 16px;
+}
+
+.crystal-loader {
+    width: 60px;
+    height: 60px;
+    background: #a855f7;
+    border-radius: 10% 40% 10% 40%;
+    box-shadow: 0 0 25px #a855f7;
+    animation: spinCrystal 2s infinite linear;
+}
+
+.loading-panel h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    color: #ffffff;
+    margin-top: 10px;
+}
+
+.loading-panel p {
+    color: #a78bfa;
+    font-size: 1rem;
+}
+
+/* Panel Akhir Game Over */
+.end-panel {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(10, 4, 22, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 90;
+    gap: 15px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.fail-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3rem;
+    color: #f87171;
+    text-shadow: 0 0 25px rgba(248,113,113,0.4);
+}
+
+.end-panel p {
+    color: #94a3b8;
+    font-size: 1.1rem;
+    max-width: 450px;
+    text-align: center;
+}
+
+.final-score {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    color: #fbbf24;
+    background-color: #1a0d33;
+    padding: 10px 35px;
+    border-radius: 30px;
+    border: 2px solid #fbbf24;
+    margin: 10px 0;
+    box-shadow: 0 0 15px rgba(251,191,36,0.2);
+}
+
+.magic-btn {
+    background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+    border: none;
+    outline: none;
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2rem;
+    padding: 14px 40px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(126,34,206,0.4), 0 0 15px rgba(168,85,247,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.magic-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(126,34,206,0.5), 0 0 25px rgba(168,85,247,0.5);
+}
+
+.magic-btn:active {
+    transform: scale(0.98);
+}
+
+/* Footer Instruksi */
+.game-instruction {
+    height: 55px;
+    background-color: #110924;
+    border-top: 2px solid #2e1852;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 10;
+}
+
+.game-instruction p {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    text-align: center;
+}
+
+.highlight-text {
+    color: #38bdf8;
+    font-weight: 700;
+}
+
+/* Animasi */
+@keyframes spinCrystal {
+    0% { transform: rotate(0deg) scale(1); border-radius: 10% 40% 10% 40%; }
+    50% { transform: rotate(180deg) scale(1.15); border-radius: 40% 10% 40% 10%; }
+    100% { transform: rotate(360deg) scale(1); border-radius: 10% 40% 10% 40%; }
+}
+
+@keyframes bounceIn {
+    0% { transform: translateX(-50%) scale(0.3); opacity: 0; }
+    50% { transform: translateX(-50%) scale(1.05); opacity: 0.8; }
+    70% { transform: translateX(-50%) scale(0.9); opacity: 0.9; }
+    100% { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+}

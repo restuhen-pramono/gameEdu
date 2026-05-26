@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: #0b0f19;
+    color: #f8fafc;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-container {
+    width: 960px;
+    max-width: 95vw;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Header UI Minimalis */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+}
+
+.back-btn {
+    text-decoration: none;
+    color: #94a3b8;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-btn:hover {
+    color: #f8fafc;
+}
+
+.game-status {
+    display: flex;
+    gap: 12px;
+}
+
+.status-badge {
+    background: #1e293b;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    border: 1px solid #334155;
+    letter-spacing: 0.5px;
+}
+
+/* Area Canvas Frame */
+.canvas-wrapper {
+    position: relative;
+    width: 100%;
+    height: 540px;
+    background: #020617;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #1e293b;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+#gameCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Panel Loading */
+.loading-panel {
+    position: absolute;
+    top:0; left:0; width:100%; height:100%;
+    background: #020617;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    gap: 15px;
+}
+
+.pulse-loader {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #f8fafc;
+    animation: pulse 1.5s ease-out infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Efek Shutter Flash Kamera */
+.flash-effect {
+    position: absolute;
+    top:0; left:0; width:100%; height:100%;
+    background: #ffffff;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 30;
+}
+
+.flash-active {
+    animation: flashAnim 0.4s ease-out;
+}
+
+@keyframes flashAnim {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* Countdown Overlay */
+.countdown-overlay {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 120px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    z-index: 25;
+    animation: scalePop 1s ease-in-out infinite;
+}
+
+@keyframes scalePop {
+    0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+}
+
+/* End Panel Dashboard */
+.end-panel {
+    position: absolute;
+    top:0; left:0; width:100%; height:100%;
+    background: rgba(2, 6, 23, 0.92);
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 40;
+    gap: 12px;
+}
+
+.end-panel h2 { font-size: 32px; font-weight: 800; color: #38bdf8; }
+.end-panel p { color: #94a3b8; }
+.final-time { font-size: 48px; font-weight: 800; margin: 10px 0; color: #ffffff; }
+
+#restartBtn {
+    background: #f8fafc;
+    color: #020617;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+
+#restartBtn:hover { background: #cbd5e1; }
+
+.app-instruction {
+    text-align: center;
+    padding: 5px;
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+}

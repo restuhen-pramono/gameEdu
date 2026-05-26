@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PramSkuyy - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard-style.css">
+</head>
+<body>
+
+    <div class="bg-glow glow1"></div>
+    <div class="bg-glow glow2"></div>
+
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-gamepad logo-icon"></i>
+                <h2>PramSkuyy</h2>
+            </div>
+            
+            <ul class="nav-links">
+                <li id="nav-dashboard" class="nav-item-link active"><a href="#" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+                <li id="nav-leaderboard" class="nav-item-link"><a href="#" onclick="switchTab('leaderboard')"><i class="fa-solid fa-trophy"></i> Leaderboard</a></li>
+                <li id="nav-achievement" class="nav-item-link"><a href="#" onclick="switchTab('achievement')"><i class="fa-solid fa-medal"></i> Achievement</a></li>
+                <li id="nav-shop" class="nav-item-link"><a href="#" onclick="switchTab('shop')"><i class="fa-solid fa-basket-shopping"></i> Shop</a></li>
+                <li id="nav-setting" class="nav-item-link"><a href="#" onclick="switchTab('setting')"><i class="fa-solid fa-gear"></i> Setting</a></li>
+            </ul>
+
+            <a href="#" class="logout-btn" onclick="handleLogout(event)"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </aside>
+
+        <main class="main-content">
+            
+            <header class="topbar">
+                <div class="welcome-text">
+                    <h1>Welcome Back, <span class="username">Player1!</span> 🎮</h1>
+                    <p>Ready to level up your brain today?</p>
+                </div>
+
+                <div class="header-widgets-container" style="display: flex; align-items: center; gap: 15px;">
+                    <div class="dashboard-diamond-status" onclick="openTopUpModal(); playGlobalSFX();" style="cursor: pointer;" title="Top Up Diamonds">
+                        <i class="fa-solid fa-gem color-diamond"></i>
+                        <span id="dashboardDiamondCount">150</span>
+                    </div>
+
+                    <div class="player-widget" id="profileTrigger" onclick="openProfileModal(); playGlobalSFX();" style="cursor: pointer;">
+                        <div class="avatar">
+                            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Player1" alt="Avatar">
+                        </div>
+                        <div class="stats-info">
+                            <span class="player-rank">LVL 12 Elite</span>
+                            <div class="xp-bar-container">
+                                <div class="xp-bar" style="width: 70%;"></div>
+                            </div>
+                            <span class="xp-text">1400 / 2000 XP</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div id="dashboard-tab" class="content-tab active-tab">
+                <section class="filter-section">
+                    <button class="filter-btn active" data-filter="all" onclick="playGlobalSFX()">All Games</button>
+                    <button class="filter-btn" data-filter="math" onclick="playGlobalSFX()"><i class="fa-solid fa-calculator"></i> Math Battle</button>
+                    <button class="filter-btn" data-filter="iq" onclick="playGlobalSFX()"><i class="fa-solid fa-brain"></i> IQ Battle</button>
+                    <button class="filter-btn" data-filter="motion" onclick="playGlobalSFX()"><i class="fa-solid fa-hand"></i> Motion Detection</button>
+                </section>
+
+                <div class="games-grid">
+                    <div class="game-card" data-category="motion">
+                        <div class="card-banner bg-iq">
+                            <span class="badge badge-hot">HOT</span>
+                            <i class="fa-solid fa-apple-whole card-icon"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3>Fruit Ninja</h3>
+                            <p>Cut the fruits that appear on the screen as quickly as possible using hand movement detection or face camera in real-time.</p>
+                            <div class="card-footer">
+                                <span class="tags"><i class="fa-solid fa-tag"></i> OpenCV Camera</span>
+                                <button class="play-btn" onclick="playGlobalSFX(); window.location.href='games/FruitNinja/fruitninja.html';">Play</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card" data-category="math">
+                        <div class="card-banner bg-opencv">
+                            <span class="badge badge-camera">NEW</span>
+                            <i class="fa-solid fa-wand-magic-sparkles card-icon"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3>Math Wizard</h3>
+                            <p>Defeat the logic monsters and solve number magic through the speed of mathematical calculation in the Math Battle arena.</p>
+                            <div class="card-footer">
+                                <span class="tags"><i class="fa-solid fa-tag"></i> Math Battle</span>
+                                <button class="play-btn" onclick="playGlobalSFX(); window.location.href='games/MathWizard/math-wizard.html';">Play</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card" data-category="iq">
+                        <div class="card-banner bg-kids">
+                            <span class="badge badge-new">HOT</span>
+                            <i class="fa-solid fa-puzzle-piece card-icon"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3>Snapshoot Puzzle</h3>
+                            <p>Test your visual sharpness and speed of analysis in assembling challenging random puzzle pieces.</p>
+                            <div class="card-footer">
+                                <span class="tags"><i class="fa-solid fa-tag"></i> IQ Battle</span>
+                                <button class="play-btn" onclick="playGlobalSFX(); window.location.href='games/SnapshotPuzzle/snapshot.html';">Play</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="leaderboard-tab" class="content-tab">
+                <div class="leaderboard-container">
+                    
+                    <div class="leaderboard-header">
+                        <div class="header-title-area">
+                            <h2>Leaderboard Arena</h2>
+                            <p>Jadilah pemain terbaik dan kuasai peringkat teratas!</p>
+                        </div>
+                        
+                        <div class="scope-selector">
+                            <button class="scope-btn active" data-scope="global" onclick="playGlobalSFX()">
+                                <i class="fa-solid fa-earth-asia"></i> Global
+                            </button>
+                            <button class="scope-btn" data-scope="regional" onclick="playGlobalSFX()">
+                                <i class="fa-solid fa-map-location-dot"></i> Regional
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="leaderboard-filter-section">
+                        <button class="lb-filter-btn active" data-lb-filter="exp" onclick="playGlobalSFX()">
+                            <i class="fa-solid fa-star"></i> Total EXP
+                        </button>
+                        <button class="lb-filter-btn" data-lb-filter="fruit-ninja" onclick="playGlobalSFX()">
+                            <i class="fa-solid fa-apple-whole"></i> Fruit Ninja
+                        </button>
+                        <button class="lb-filter-btn" data-lb-filter="math-wizard" onclick="playGlobalSFX()">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> MathWizard
+                        </button>
+                        <button class="lb-filter-btn" data-lb-filter="snapshoot-puzzle" onclick="playGlobalSFX()">
+                            <i class="fa-solid fa-puzzle-piece"></i> Snapshoot Puzzle
+                        </button>
+                    </div>
+
+                    <div class="podium-container">
+                        <div class="podium-card rank-2">
+                            <div class="podium-avatar">
+                                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Shadow" alt="Rank 2">
+                                <div class="podium-badge">2</div>
+                            </div>
+                            <h3 id="podium-name-2">ShadowStorm</h3>
+                            <p class="podium-score" id="podium-score-2">2,450 pts</p>
+                        </div>
+
+                        <div class="podium-card rank-1">
+                            <div class="podium-avatar">
+                                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Pram" class="current-user-avatar" alt="Rank 1">
+                                <div class="podium-badge">1</div>
+                            </div>
+                            <h3 id="podium-name-1">PramSkuyy</h3>
+                            <p class="podium-score" id="podium-score-1">3,120 pts</p>
+                        </div>
+
+                        <div class="podium-card rank-3">
+                            <div class="podium-avatar">
+                                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Alpha" alt="Rank 3">
+                                <div class="podium-badge">3</div>
+                            </div>
+                            <h3 id="podium-name-3">AlphaElite</h3>
+                            <p class="podium-score" id="podium-score-3">1,980 pts</p>
+                        </div>
+                    </div>
+
+                    <div class="leaderboard-table-wrapper">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Player</th>
+                                    <th>Kategori</th>
+                                    <th>Wilayah</th>
+                                    <th>Skor Terbaik</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboard-data-rows">
+                                </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="achievement-tab" class="content-tab">
+                <div class="achievement-container">
+                    
+                    <div class="achievement-header">
+                        <div class="header-title-area">
+                            <h2>Medal Gallery</h2>
+                            <p>Selesaikan tantangan dan kumpulkan koleksi medali langka!</p>
+                        </div>
+                        <div class="achievement-stats-summary">
+                            <div class="summary-box">
+                                <span class="label">Unlocked</span>
+                                <span class="value">8/24</span>
+                            </div>
+                            <div class="summary-box">
+                                <span class="label">Mastery</span>
+                                <span class="value">33%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-progress-grid">
+                        <div class="progress-card">
+                            <div class="prog-info">
+                                <span><i class="fa-solid fa-apple-whole"></i> Fruit Ninja</span>
+                                <span>60%</span>
+                            </div>
+                            <div class="xp-bar-large"><div class="xp-bar-fill" style="width: 60%;"></div></div>
+                        </div>
+                        <div class="progress-card">
+                            <div class="prog-info">
+                                <span><i class="fa-solid fa-wand-magic-sparkles"></i> MathWizard</span>
+                                <span>25%</span>
+                            </div>
+                            <div class="xp-bar-large"><div class="xp-bar-fill" style="width: 25%;"></div></div>
+                        </div>
+                        <div class="progress-card">
+                            <div class="prog-info">
+                                <span><i class="fa-solid fa-puzzle-piece"></i> Snapshoot Puzzle</span>
+                                <span>10%</span>
+                            </div>
+                            <div class="xp-bar-large"><div class="xp-bar-fill" style="width: 10%;"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="achievement-grid">
+                        <div class="achieve-card unlocked">
+                            <div class="achieve-icon">
+                                <i class="fa-solid fa-fire-burner"></i>
+                            </div>
+                            <div class="achieve-info">
+                                <h4>First Blood</h4>
+                                <p>Selesaikan 1 game apa saja.</p>
+                                <span class="reward">+50 XP</span>
+                            </div>
+                            <div class="status-check"><i class="fa-solid fa-circle-check"></i></div>
+                        </div>
+
+                        <div class="achieve-card unlocked">
+                            <div class="achieve-icon fruit-theme">
+                                <i class="fa-solid fa-shredder"></i>
+                            </div>
+                            <div class="achieve-info">
+                                <h4>Fruit Slasher</h4>
+                                <p>Potong 100 buah di Fruit Ninja.</p>
+                                <span class="reward">+10 Diamonds</span>
+                            </div>
+                            <div class="status-check"><i class="fa-solid fa-circle-check"></i></div>
+                        </div>
+
+                        <div class="achieve-card locked">
+                            <div class="achieve-icon math-theme">
+                                <i class="fa-solid fa-hat-wizard"></i>
+                            </div>
+                            <div class="achieve-info">
+                                <h4>Math Genius</h4>
+                                <p>Skor 1000 Pts di MathWizard.</p>
+                                <span class="reward">+200 XP</span>
+                            </div>
+                            <div class="status-check"><i class="fa-solid fa-lock"></i></div>
+                        </div>
+
+                        <div class="achieve-card locked">
+                            <div class="achieve-icon puzzle-theme">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <div class="achieve-info">
+                                <h4>Fast Reflex</h4>
+                                <p>Selesaikan Puzzle < 30 detik.</p>
+                                <span class="reward">+50 Diamonds</span>
+                            </div>
+                            <div class="status-check"><i class="fa-solid fa-lock"></i></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="shop-tab" class="content-tab">
+                <div class="shop-container">
+                    
+                    <div class="shop-header">
+                        <div class="header-title-area">
+                            <h2>PramSkuyy Vault</h2>
+                            <p>Gunakan Diamonds milikmu untuk mengoleksi item-item langka eksklusif!</p>
+                        </div>
+                    </div>
+
+                    <div class="shop-grid">
+                        <div class="shop-card" data-item-id="avatar-cyber">
+                            <div class="item-preview-box">
+                                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=CyberNeon" alt="Cyber Neon">
+                                <span class="item-tag tag-purple">Avatar</span>
+                            </div>
+                            <div class="item-details">
+                                <h3>Cyber Neon Bot</h3>
+                                <p>Ubah tampilan foto profil utamamu dengan desain robot futuristik bercahaya.</p>
+                                <button class="buy-btn" onclick="buyItem('avatar-cyber', 150); playGlobalSFX();">
+                                    <i class="fa-solid fa-gem"></i> 150
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="shop-card" data-item-id="border-gold">
+                            <div class="item-preview-box border-gold-effect">
+                                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Pram" alt="Gold Frame">
+                                <span class="item-tag tag-amber">Frame</span>
+                            </div>
+                            <div class="item-details">
+                                <h3>Gold Master Border</h3>
+                                <p>Berikan efek bingkai emas mengkilap pada namamu di papan Leaderboard.</p>
+                                <button class="buy-btn" onclick="buyItem('border-gold', 200); playGlobalSFX();">
+                                    <i class="fa-solid fa-gem"></i> 200
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="shop-card" data-item-id="booster-xp">
+                            <div class="item-preview-box booster-bg">
+                                <i class="fa-solid fa-angles-up booster-icon"></i>
+                                <span class="item-tag tag-green">Booster</span>
+                            </div>
+                            <div class="item-details">
+                                <h3>2x XP Card (24h)</h3>
+                                <p>Dapatkan perolehan EXP dua kali lipat lebih banyak dari setiap game yang kamu mainkan.</p>
+                                <button class="buy-btn" onclick="buyItem('booster-xp', 75); playGlobalSFX();">
+                                    <i class="fa-solid fa-gem"></i> 75
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="setting-tab" class="content-tab">
+                <div class="setting-container">
+                    
+                    <div class="setting-header">
+                        <div class="header-title-area">
+                            <h2>Game Settings</h2>
+                            <p>Atur konfigurasi audio, grafis, dan akun sesuai kenyamanan bermainmu.</p>
+                        </div>
+                    </div>
+
+                    <div class="setting-sections-wrapper">
+                        <div class="setting-box">
+                            <h3><i class="fa-solid fa-palette color-purple"></i> Theme Settings</h3>
+                            <p class="section-desc">Kustomisasi warna aksen dan atmosfir ambient dashboard sesuai seleramu.</p>
+                            
+                            <div class="setting-row flex-column-mobile">
+                                <div class="row-info">
+                                    <h4>Aksen Warna Utama</h4>
+                                    <p>Pilih palet warna neon untuk mengubah kilau latar belakang dan warna tombol dashboard.</p>
+                                </div>
+                                <div class="theme-options-grid">
+                                    <button class="theme-btn theme-cyber active" onclick="changeDashboardTheme('cyber'); playGlobalSFX();">
+                                        <span class="color-dot bg-cyber"></span> Cyber Neon
+                                    </button>
+                                    <button class="theme-btn theme-emerald" onclick="changeDashboardTheme('emerald'); playGlobalSFX();">
+                                        <span class="color-dot bg-emerald"></span> Emerald Hack
+                                    </button>
+                                    <button class="theme-btn theme-ruby" onclick="changeDashboardTheme('ruby'); playGlobalSFX();">
+                                        <span class="color-dot bg-ruby"></span> Ruby Rage
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting-box">
+                            <h3><i class="fa-solid fa-volume-high color-amber"></i> Audio & Volume</h3>
+                            <p class="section-desc">Sesuaikan tingkat kenyaringan suara musik di dalam game.</p>
+                            
+                            <div class="setting-row range-row">
+                                <div class="row-info">
+                                    <h4>Background Music (BGM)</h4>
+                                    <p>Mengatur volume lagu tema utama game.</p>
+                                </div>
+                                <div class="range-container">
+                                    <i class="fa-solid fa-music text-muted"></i>
+                                    <input type="range" min="0" max="100" value="70" class="setting-slider" id="bgm-volume" oninput="updateVolumeText('bgm')">
+                                    <span class="volume-val" id="bgm-val-txt">70%</span>
+                                </div>
+                            </div>
+
+                            <div class="setting-row range-row">
+                                <div class="row-info">
+                                    <h4>Sound Effects (SFX)</h4>
+                                    <p>Mengatur volume efek suara tebasan buah atau sihir matematika.</p>
+                                </div>
+                                <div class="range-container">
+                                    <i class="fa-solid fa-music text-muted"></i>
+                                    <input type="range" min="0" max="100" value="85" class="setting-slider" id="sfx-volume" oninput="updateVolumeText('sfx')">
+                                    <span class="volume-val" id="sfx-val-txt">85%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting-box">
+                            <h3><i class="fa-solid fa-video color-green"></i> Camera & Devices</h3>
+                            <p class="section-desc">Konfigurasi izin webcam untuk fungsionalitas game OpenCV.</p>
+                            
+                            <div class="setting-row">
+                                <div class="row-info">
+                                    <h4>OpenCV Face Tracking Camera</h4>
+                                    <p>Izinkan akses kamera laptop otomatis saat masuk ke game Fruit Ninja.</p>
+                                </div>
+                                <label class="switch-toggle">
+                                    <input type="checkbox" id="camera-toggle" checked onchange="toggleCameraPref()">
+                                    <span class="slider-round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="topUpModal">
+        <div class="profile-modal-card" style="max-width: 440px;">
+            <button class="close-modal-btn" onclick="closeTopUpModal(); playGlobalSFX();">&times;</button>
+            
+            <div class="modal-profile-header" style="margin-bottom: 20px;">
+                <i class="fa-solid fa-circle-dollar-to-slot color-diamond" style="font-size: 45px; margin-bottom: 10px; display: inline-block;"></i>
+                <h2>Kedai Diamond PramSkuyy</h2>
+                <p style="color: #94a3b8; font-size: 13px; margin-top: 5px;">Pilih paket top-up simulasi untuk menambah saldo instan</p>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 10px;">
+                
+                <div class="stat-box" style="display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 12px 20px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <i class="fa-solid fa-gem color-diamond" style="font-size: 20px; margin: 0;"></i>
+                        <div>
+                            <h4 style="font-size: 14px; color: #fff;">50 Diamonds</h4>
+                            <p style="font-size: 11px; color: #94a3b8; font-weight: 400;">Paket Pemula Skuyy</p>
+                        </div>
+                    </div>
+                    <button class="play-btn" onclick="processTopUp(50, 'Rp 15.000'); playGlobalSFX();">Rp 15.000</button>
+                </div>
+
+                <div class="stat-box" style="display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 12px 20px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <i class="fa-solid fa-gem color-diamond" style="font-size: 24px; margin: 0;"></i>
+                        <div>
+                            <h4 style="font-size: 14px; color: #fff;">250 Diamonds</h4>
+                            <p style="font-size: 11px; color: #94a3b8; font-weight: 400;">Paket Elite Gaming</p>
+                        </div>
+                    </div>
+                    <button class="play-btn" onclick="processTopUp(250, 'Rp 50.000'); playGlobalSFX();">Rp 50.000</button>
+                </div>
+
+                <div class="stat-box" style="display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 12px 20px; border-color: rgba(34, 211, 238, 0.3);">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <i class="fa-solid fa-gem color-diamond" style="font-size: 28px; margin: 0; text-shadow: 0 0 10px #22d3ee;"></i>
+                        <div>
+                            <h4 style="font-size: 14px; color: #fff;">500 Diamonds <span style="background: #22d3ee; color:#020617; font-size:9px; padding:2px 5px; border-radius:4px; font-weight:700; margin-left:5px;">BEST</span></h4>
+                            <p style="font-size: 11px; color: #94a3b8; font-weight: 400;">Sultan PramSkuyy Pack</p>
+                        </div>
+                    </div>
+                    <button class="play-btn" onclick="processTopUp(500, 'Rp 99.000'); playGlobalSFX();">Rp 99.000</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="profileModal">
+        <div class="profile-modal-card">
+            <button class="close-modal-btn" onclick="closeProfileModal(); playGlobalSFX();">&times;</button>
+            
+            <div class="modal-diamond-status">
+                <i class="fa-solid fa-gem color-diamond"></i>
+                <span id="modalDiamondCount">150</span>
+            </div>
+
+            <div class="modal-profile-header">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Player1" alt="Avatar Large" class="avatar-large">
+                
+                <div class="name-edit-container">
+                    <h2 id="modalPlayerName">Player1</h2>
+                    <button class="edit-name-btn" onclick="showEditNameInput(); playGlobalSFX();" title="Ubah Nama">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                </div>
+
+                <div id="editNameForm" class="edit-name-form" style="display: none;">
+                    <input type="text" id="newNameInput" maxlength="15" placeholder="Masukkan nama baru...">
+                    <div class="form-actions">
+                        <button class="btn-confirm-name" onclick="processChangeName(); playGlobalSFX();">Simpan</button>
+                        <button class="btn-cancel-name" onclick="hideEditNameInput(); playGlobalSFX();">Batal</button>
+                    </div>
+                    <p id="changeNameCostText" class="cost-info-text">Gratis untuk pergantian pertama!</p>
+                </div>
+
+                <span class="badge-elite">LVL 12 Elite Player</span>
+            </div>
+
+            <div class="modal-stats-grid">
+                <div class="stat-box">
+                    <i class="fa-solid fa-gamepad color-purple"></i>
+                    <h4>Game Played</h4>
+                    <p>48 Kali</p>
+                </div>
+                <div class="stat-box">
+                    <i class="fa-solid fa-calculator color-green"></i>
+                    <h4>Math Score</h4>
+                    <p>320 XP</p>
+                </div>
+                <div class="stat-box">
+                    <i class="fa-solid fa-brain color-amber"></i>
+                    <h4>Highest IQ</h4>
+                    <p>125 IQ</p>
+                </div>
+                <div class="stat-box">
+                    <i class="fa-solid fa-fire color-red"></i>
+                    <h4>Daily Streak</h4>
+                    <p>5 Hari</p>
+                </div>
+            </div>
+
+            <div class="xp-progress-detailed">
+                <div class="xp-text-flex">
+                    <span>Progress Level Up</span>
+                    <span>1400 / 2000 XP</span>
+                </div>
+                <div class="xp-bar-large">
+                    <div class="xp-bar-fill" style="width: 70%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <audio id="global-bgm" src="bgm-main.mp3" loop></audio>
+    <audio id="global-sfx" src="sfx-click.mp3"></audio>
+
+    <script>
+        function playGlobalSFX() {
+            const sfx = document.getElementById('global-sfx');
+            if (!sfx) return;
+            sfx.currentTime = 0;
+            sfx.play().catch(() => {});
+        }
+
+        function filterGames(filter) {          // ← tambah di sini
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.filter === filter);
+            });
+            document.querySelectorAll('.game-card').forEach(card => {
+                const match = filter === 'all' || card.dataset.category === filter;
+                card.style.display = match ? '' : 'none';
+            });
+        }
+    </script>
+
+    <script src="dashboard-script.js"></script>  ← harus setelah script inline
+</body>
+</html>

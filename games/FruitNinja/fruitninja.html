@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PramVerse | Fruit Ninja OpenCV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="fruitninja.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="bg-glow glow1"></div>
+    <div class="bg-glow glow2"></div>
+
+    <div class="game-container">
+        <header class="game-header">
+            <a href="../../dashboard.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+            <div class="score-board">
+                <div class="stat"><i class="fa-solid fa-star text-orange"></i> Score: <span id="scoreValue">0</span></div>
+                <div class="stat"><i class="fa-solid fa-heart text-red"></i> Lives: <span id="livesValue">3</span></div>
+            </div>
+        </header>
+
+        <div class="canvas-wrapper">
+            <video id="webcam" autoplay playsinline style="display:none;"></video>
+            
+            <canvas id="gameCanvas"></canvas>
+
+            <div id="loadingOverlay" class="loading-overlay">
+                <div class="spinner"></div>
+                <h2>Menghubungkan Kamera & AI...</h2>
+                <p>Pastikan izin kamera diizinkan ya!</p>
+            </div>
+
+            <div id="gameOverPanel" class="game-over-panel" style="display: none;">
+                <h1>GAME OVER 🎮</h1>
+                <p>Skor Akhir Kamu:</p>
+                <div class="final-score" id="finalScore">0</div>
+                <button id="restartBtn"><i class="fa-solid fa-rotate-right"></i> Main Lagi</button>
+            </div>
+        </div>
+
+        <footer class="game-instruction">
+            <p><i class="fa-solid fa-video"></i> <strong>Cara Bermain:</strong> Lambaikan tanganmu di depan kamera untuk memotong buah! Hindari Bom berwarna merah!</p>
+        </footer>
+    </div>
+
+    <script src="fruitninja.js"></script>
+</body>
+</html>

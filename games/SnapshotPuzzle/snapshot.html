@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PramVerse | Snapshot Puzzle IQ Frame</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="snapshot.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+<script defer src="snapshot.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="app-header">
+            <a href="../../dashboard.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+            <div class="game-status">
+                <div class="status-badge" id="gameModeText"><i class="fa-solid fa-camera"></i> Fase: Pembingkaian</div>
+                <div class="status-badge"><i class="fa-solid fa-clock"></i> Waktu: <span id="timerValue">00</span>s</div>
+            </div>
+        </header>
+
+        <div class="canvas-wrapper">
+            <video id="webcam" autoplay playsinline style="display:none;"></video>
+            
+            <canvas id="gameCanvas"></canvas>
+
+            <div id="loadingOverlay" class="loading-panel">
+                <div class="pulse-loader"></div>
+                <h3>Menginisialisasi IQ Frame AI...</h3>
+                <p>Siapkan kedua tangan Anda di depan kamera</p>
+            </div>
+
+            <div id="cameraFlash" class="flash-effect"></div>
+
+            <div id="countdownDisplay" class="countdown-overlay" style="display: none;">3</div>
+
+            <div id="endGamePanel" class="end-panel" style="display: none;">
+                <h2 id="endTitle">PUZZLE BERHASIL! 🧠</h2>
+                <p>Selamat! IQ Anda tervalidasi dengan catatan waktu:</p>
+                <div class="final-time" id="finalTime">0 detik</div>
+                <button id="restartBtn"><i class="fa-solid fa-rotate-right"></i> Ambil Foto Baru</button>
+            </div>
+        </div>
+
+        <footer class="app-instruction">
+            <p id="instructionText"><i class="fa-solid fa-circle-info"></i> <strong>Cara Bermain:</strong> Satukan tangan kanan & kiri untuk membuat bingkai persegi panjang guna memotret objek puzzle.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
